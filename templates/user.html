@@ -1,17 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User Page</title>
-</head>
-<body>
-    <h1>Hello, {{ name|capitalize }}!</h1> 
+{% extends "bootstrap/base.html" %}
+
+{% block title %}User Page{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Flasky</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Hello, {{ name|capitalize }}!</h1>
 
     <p>My favorite fruit: {{ mydict['fruit'] }}</p>
     <p>Second subject in your list: {{ mylist[1] }}</p>
-    <p>A value from a list with variable index: {{ mylist[myindex] }}.</p>
+    <p>A value from a list with variable index: {{ mylist[myindex] }}</p>
     <p>Teacher says: {{ myobj.somemethod() }}</p>
-
-
     <p>HTML Example (safe filter): {{ html_content|safe }}</p>
-</body>
-</html>
+
+    <hr>
+
+    <h2>Subjects:</h2>
+    <ul>
+        {% for subject in mylist %}
+            <li>{{ subject }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if name.lower() == "rema" %}
+        <p class="text-success">Welcome back, special user 🌸!</p>
+    {% else %}
+        <p>Hello, {{ name }} 👋</p>
+    {% endif %}
+</div>
+{% endblock %}
